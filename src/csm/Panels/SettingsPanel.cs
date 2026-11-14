@@ -79,7 +79,7 @@ namespace CSM.Panels
             UITextField timeoutInput = null;
             timeoutInput = (UITextField) advancedGroup.AddTextfield("Connection timeout (seconds)", settings.ConnectionTimeoutSeconds.value.ToString(), text => {}, text =>
             {
-                if (int.TryParse(text, out int seconds) && seconds > 0)
+                if (int.TryParse(text, out int seconds) && seconds > 0 && seconds <= Settings.MaxConnectionTimeoutSeconds)
                 {
                     settings.ConnectionTimeoutSeconds.value = seconds;
                 }

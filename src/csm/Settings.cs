@@ -21,6 +21,7 @@ namespace CSM
         private const int DefaultApiServerPort = 4240;
         // Matches LiteNetLib's built-in default
         private const int DefaultConnectionTimeoutSeconds = 5;
+        public const int MaxConnectionTimeoutSeconds = 600;
 
         public readonly SavedBool DebugLogging =
             new SavedBool(nameof(DebugLogging), SettingsFile, DefaultDebugLogging, true);
