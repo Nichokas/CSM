@@ -19,8 +19,8 @@ namespace CSM
         private const string DefaultLastSeenReleaseNotes = "0.0";
         private const string DefaultApiServer = "api.citiesskylinesmultiplayer.com";
         private const int DefaultApiServerPort = 4240;
-        // Matches LiteNetLib's built-in default
-        private const int DefaultConnectionTimeoutSeconds = 5;
+        // LiteNetLib's built-in default; going lower risks dropping healthy peers between 1 s keepalive pings
+        public const int MinConnectionTimeoutSeconds = 5;
         public const int MaxConnectionTimeoutSeconds = 600;
 
         public readonly SavedBool DebugLogging =
@@ -51,6 +51,10 @@ namespace CSM
             new SavedInt(nameof(ApiServerPort), SettingsFile, DefaultApiServerPort, true);
 
         public readonly SavedInt ConnectionTimeoutSeconds =
-            new SavedInt(nameof(ConnectionTimeoutSeconds), SettingsFile, DefaultConnectionTimeoutSeconds, true);
+            new SavedInt(nameof(ConnectionTimeoutSeconds), SettingsFile, MinConnectionTimeoutSeconds, true);
+
+        // The settings file can be edited by hand, so the saved value is not trusted to be in range
+        public int ConnectionTimeoutMs =>
+            System.Math.Min(System.Math.Max(ConnectionTimeoutSeconds.value, MinConnectionTimeoutSeconds), MaxConnectionTimeoutSeconds) * 1000;
     }
 }
