@@ -19,6 +19,8 @@ namespace CSM
         private const string DefaultLastSeenReleaseNotes = "0.0";
         private const string DefaultApiServer = "api.citiesskylinesmultiplayer.com";
         private const int DefaultApiServerPort = 4240;
+        // Matches LiteNetLib's built-in default
+        private const int DefaultConnectionTimeoutSeconds = 5;
 
         public readonly SavedBool DebugLogging =
             new SavedBool(nameof(DebugLogging), SettingsFile, DefaultDebugLogging, true);
@@ -46,5 +48,8 @@ namespace CSM
 
         public readonly SavedInt ApiServerPort =
             new SavedInt(nameof(ApiServerPort), SettingsFile, DefaultApiServerPort, true);
+
+        public readonly SavedInt ConnectionTimeoutSeconds =
+            new SavedInt(nameof(ConnectionTimeoutSeconds), SettingsFile, DefaultConnectionTimeoutSeconds, true);
     }
 }
